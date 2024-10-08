@@ -14,7 +14,7 @@ class TestPlant:
     def test_plants_get_route_returns_list_of_plant_objects(self):
         '''returns JSON representing Plant objects at "/plants".'''
         with app.app_context():
-            p = Plant(name="Douglas Fir", image="./images/douglas-fir.jpg", price=25.98)
+            p = Plant(name="Douglas Fir",image="./images/douglas-fir.jpg", price=25.98)
             db.session.add(p)
             db.session.commit()
 

@@ -7,9 +7,9 @@ class Plant(db.Model, SerializerMixin):
     __tablename__ = 'plants'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    image = db.Column(db.String, nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=False)
+    name = db.Column(db.String)
+    image = db.Column(db.String)
+    price = db.Column(db.Numeric(10, 2))
 
     def to_dict(self):
         return {
