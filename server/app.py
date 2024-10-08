@@ -16,11 +16,35 @@ db.init_app(app)
 
 api = Api(app)
 
+# Resource to handle the /plants endpoint
 class Plants(Resource):
-    pass
+    def get(self):
+        """GET all plants"""
+        plants = Plant.query.all()
+        return jsonify([plant.to_dict() for plant in plants])
 
+    def post(self):
+        """POST a new plant"""
+        data = request.get_json()
+        new_plant = Plant(
+            name=data['name'],
+            image=data['image'],
+            price=data['price']
+        )
+        db.session.add(new_plant)
+        db.session.commit()
+        return jsonify(new_plant.to_dict()), 201
+
+# Resource to handle the /plants/<id> endpoint
 class PlantByID(Resource):
-    pass
+    def get(self, id):
+        """GET a single plant by ID"""
+        plant = Plant.query.get_or_404(id)
+        return jsonify(plant.to_dict())
+
+# Add the resources to the API
+api.add_resource(Plants, '/plants')
+api.add_resource(PlantByID, '/plants/<int:id>')
         
 
 if __name__ == '__main__':
